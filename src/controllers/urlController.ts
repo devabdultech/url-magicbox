@@ -3,8 +3,8 @@ import { Url } from "../models/Url";
 
 const handleGenerateUrl = async (req, res) => {
   const body = req.body;
-  const shortID = nanoid(7);
-  const longID = nanoid(30);
+  const shortID = nanoid(5);
+  const longID = nanoid(70);
 
   if (!body) return res.status(400).json({ message: "No url found" });
 

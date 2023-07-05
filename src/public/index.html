@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL MagicBox - Short and Lengthen URLS</title>
     <link rel="stylesheet" href="styles.css" />
-    <title>URL MagicBox</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
   </head>
   <body>
     <header>
@@ -17,10 +22,24 @@
           <button type="submit">Transform</button>
         </form>
         <div id="result-container">
-          <p id="result"></p>
+          <h3>Shortened URL:</h3>
+          <div id="short-url" class="url-container">
+            <a href="#" id="short-url-link" target="_blank"></a>
+            <button class="copy-button" id="copy-short-url-button">Copy</button>
+          </div>
+          <h3>Lengthened URL:</h3>
+          <div id="long-url" class="url-container">
+            <a href="#" id="long-url-link" target="_blank"></a>
+            <button class="copy-button" id="copy-long-url-button">Copy</button>
+          </div>
         </div>
       </div>
     </main>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <script src="app.js"></script>
   </body>
 </html>

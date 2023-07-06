@@ -56,6 +56,9 @@ form.addEventListener("submit", (e) => {
       // Display the result container
       const resultContainer = document.getElementById("result-container");
       resultContainer.style.display = "block";
+
+      // Clear the input field
+      urlInput.value = "";
     })
     .catch((error) => {
       // Handle any errors that occur during the request

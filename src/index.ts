@@ -21,7 +21,7 @@ app.get("/", (_, res: Response) => {
 
 app.use("/url", urlRoutes);
 
-app.get("/:url", async (req, res) => {
+app.get("/:url", async (req: Request, res: Response) => {
   const { url } = req.params;
   const entry = await Url.findOne({
     $or: [{ shortUrl: url }, { longUrl: url }],

@@ -1,7 +1,8 @@
+import { Request, Response } from "express";
 import { nanoid } from "nanoid";
 import { Url } from "../models/Url";
 
-const handleGenerateUrl = async (req, res) => {
+const handleGenerateUrl = async (req: Request, res: Response) => {
   const body = req.body;
   const shortID = nanoid(5);
   const longID = nanoid(70);

@@ -5,6 +5,18 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   let input = urlInput.value;
 
+  if (!input) {
+    Toastify({
+      text: "Invalid URL: Please enter a valid URL",
+      gravity: "top",
+      position: "center",
+      style: {
+        background: "linear-gradient(to right, #d50000, #ff1744)",
+      },
+    }).showToast();
+    return;
+  }
+
   // Check and append "https://" if necessary
   if (!input.includes("https:") && !input.includes("http:")) {
     input = "https://" + input;

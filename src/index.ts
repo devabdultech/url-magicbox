@@ -9,23 +9,41 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
 connectDB();
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.get("/", (_, res: Response) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.use("/url", urlRoutes);
+app.get("/test", (_, res: Response) => {
+  res.send("Hello World");
+});
+
+app.get("/analytics", async (_, res: Response) => {
+  try {
+    const analyticsData = await Url.find(
+      {},
+      "shortUrl longUrl originalUrl clicks"
+    );
+    res.json({ data: analyticsData });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch analytics data" });
+  }
+});
 
 app.get("/:url", async (req: Request, res: Response) => {
   const { url } = req.params;
-  const entry = await Url.findOne({
-    $or: [{ shortUrl: url }, { longUrl: url }],
-  });
+  const entry = await Url.findOneAndUpdate(
+    {
+      $or: [{ shortUrl: url }, { longUrl: url }],
+    },
+    { $inc: { clicks: 1 } }
+  );
 
   if (entry) {
     res.redirect(entry.originalUrl);
@@ -34,6 +52,8 @@ app.get("/:url", async (req: Request, res: Response) => {
     res.status(404).send("URL not found");
   }
 });
+
+app.use("/url", urlRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server started on Port ${PORT}`);

@@ -104,3 +104,42 @@ a {
 .Toastify__toast--info {
   background: linear-gradient(to right, #00bfa5, #1de9b6);
 }
+
+/* Add this CSS code to your existing styles */
+
+.analytics-container {
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+#analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#analytics-table thead {
+  text-align: left;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+#analytics-table th,
+#analytics-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+#analytics-data td:first-child {
+  max-width: 200px;
+  overflow-wrap: break-word;
+}

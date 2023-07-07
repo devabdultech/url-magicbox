@@ -99,3 +99,25 @@ function copyUrl(event) {
     }).showToast();
   });
 }
+
+// Fetch analytics data
+fetch("http://localhost:3000/analytics")
+  .then((response) => response.json())
+  .then((data) => {
+    let dataArray = data.data;
+    const analyticsTable = document.getElementById("analytics-data");
+    console.log(dataArray);
+
+    dataArray.map((entry) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td><a href="http://localhost:3000/${entry.shortUrl}" target="_blank">http://localhost:3000/${entry.shortUrl}</a></td>
+        <td><a href="${entry.originalUrl}" target="_blank">${entry.originalUrl}</a></td>
+        <td>${entry.clicks}</td>
+      `;
+      analyticsTable.appendChild(row);
+    });
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });

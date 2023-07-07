@@ -106,7 +106,6 @@ fetch("http://localhost:3000/analytics")
   .then((data) => {
     let dataArray = data.data;
     const analyticsTable = document.getElementById("analytics-data");
-    console.log(dataArray);
 
     dataArray.map((entry) => {
       const row = document.createElement("tr");

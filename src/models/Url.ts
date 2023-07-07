@@ -12,3 +12,11 @@ const urlSchema = new mongoose.Schema(
 );
 
 export const Url = mongoose.model("Url", urlSchema);
+
+Url.syncIndexes()
+  .then(() => {
+    console.log("Indexes synced successfully");
+  })
+  .catch((error) => {
+    console.error("Failed to sync indexes:", error);
+  });

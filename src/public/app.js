@@ -124,15 +124,36 @@ fetch("http://localhost:3000/analytics")
       `;
       analyticsTable.appendChild(row);
     });
+
+    const deleteIcons = document.querySelectorAll(".delete-icon");
+
+    deleteIcons.forEach((element) => {
+      element.addEventListener("click", handleDelete);
+    });
   })
   .catch((error) => {
     console.error("Error:", error);
   });
 
-const deleteIcons = document.querySelectorAll(".delete-icon");
-deleteIcons.forEach((deleteIcon) => {
-  deleteIcon.addEventListener("click", handleDelete);
-});
+async function handleDelete(event) {
+  const id = event.currentTarget.getAttribute("data-id");
+  try {
+    const response = await fetch(`http://localhost:3000/delete/${id}`, {
+      method: "DELETE",
+    });
+
+    if (response.ok) {
+      // Handle successful deletion
+      console.log("URL deleted successfully");
+    } else {
+      // Handle deletion failure
+      console.error("Failed to delete URL");
+    }
+  } catch (error) {
+    // Handle error case
+    console.error("Failed to delete URL", error);
+  }
+}
 
 const copyIcons = document.querySelectorAll(".copy-icon");
 copyIcons.forEach((copyIcon) => {

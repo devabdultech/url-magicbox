@@ -113,6 +113,14 @@ fetch("http://localhost:3000/analytics")
         <td><a href="http://localhost:3000/${entry.shortUrl}" target="_blank">http://localhost:3000/${entry.shortUrl}</a></td>
         <td><a href="${entry.originalUrl}" target="_blank">${entry.originalUrl}</a></td>
         <td>${entry.clicks}</td>
+        <td>
+          <span class="copy-icon" data-url="${entry.shortUrl}">
+            <i class="fas fa-copy"></i>
+          </span>
+          <span class="delete-icon" data-id="${entry._id}">
+            <i class="fas fa-trash-alt"></i>
+          </span>
+        </td>
       `;
       analyticsTable.appendChild(row);
     });
@@ -120,3 +128,13 @@ fetch("http://localhost:3000/analytics")
   .catch((error) => {
     console.error("Error:", error);
   });
+
+const deleteIcons = document.querySelectorAll(".delete-icon");
+deleteIcons.forEach((deleteIcon) => {
+  deleteIcon.addEventListener("click", handleDelete);
+});
+
+const copyIcons = document.querySelectorAll(".copy-icon");
+copyIcons.forEach((copyIcon) => {
+  copyIcon.addEventListener("click", handleCopy);
+});

@@ -36,6 +36,16 @@ app.get("/analytics", async (_, res: Response) => {
   }
 });
 
+app.get("/delete/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    await Url.findByIdAndDelete(id);
+    res.redirect("/analytics");
+  } catch (err) {
+    res.status(500).json({ message: "Failed to delete URL" });
+  }
+});
+
 app.get("/:url", async (req: Request, res: Response) => {
   const { url } = req.params;
   const entry = await Url.findOneAndUpdate(

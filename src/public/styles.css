@@ -168,6 +168,17 @@ h2 {
   cursor: pointer;
 }
 
+.copy-icon,
+.delete-icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.copy-icon:hover,
+.delete-icon:hover {
+  color: blue;
+}
+
 /* Mobile responsiveness */
 
 @media (max-width: 768px) {

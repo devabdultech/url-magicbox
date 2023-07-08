@@ -20,10 +20,6 @@ app.get("/", (_, res: Response) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-app.get("/test", (_, res: Response) => {
-  res.send("Hello World");
-});
-
 app.get("/analytics", async (_, res: Response) => {
   try {
     const analyticsData = await Url.find(
@@ -40,6 +36,7 @@ app.delete("/delete/:id", async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     await Url.findOneAndDelete({ _id: id });
+    res.status(200).json({ message: "URL deleted successfully" });
   } catch (err) {
     res.status(500).json({ message: "Failed to delete URL" });
   }

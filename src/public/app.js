@@ -86,12 +86,13 @@ document
   .getElementById("copy-long-url-button")
   .addEventListener("click", copyUrl);
 
+const analyticsTable = document.getElementById("analytics-data");
+
 // Fetch analytics data
 fetch("http://localhost:3000/analytics")
   .then((response) => response.json())
   .then((data) => {
     let dataArray = data.data;
-    const analyticsTable = document.getElementById("analytics-data");
 
     dataArray.map((entry) => {
       const row = document.createElement("tr");
@@ -142,13 +143,24 @@ async function copyUrl(event) {
 
 async function handleDelete(event) {
   const id = event.currentTarget.getAttribute("data-id");
+  const rowToDelete = event.currentTarget.parentElement.parentElement;
   try {
     const response = await fetch(`http://localhost:3000/delete/${id}`, {
       method: "DELETE",
     });
 
-    if (response.ok) {
+    if (response.status === 200) {
       // Handle successful deletion
+      console.log(rowToDelete);
+      rowToDelete.remove();
+      Toastify({
+        text: "URL deleted successfully",
+        gravity: "top",
+        position: "center",
+        style: {
+          background: "linear-gradient(to right, #00bfa5, #1de9b6)",
+        },
+      }).showToast();
       console.log("URL deleted successfully");
     } else {
       // Handle deletion failure

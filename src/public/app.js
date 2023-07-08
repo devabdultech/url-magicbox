@@ -86,20 +86,6 @@ document
   .getElementById("copy-long-url-button")
   .addEventListener("click", copyUrl);
 
-function copyUrl(event) {
-  const url = event.target.getAttribute("data-url");
-  navigator.clipboard.writeText(url).then(() => {
-    Toastify({
-      text: "URL copied to clipboard.",
-      gravity: "top",
-      position: "center",
-      style: {
-        background: "linear-gradient(to right, #00bfa5, #1de9b6)",
-      },
-    }).showToast();
-  });
-}
-
 // Fetch analytics data
 fetch("http://localhost:3000/analytics")
   .then((response) => response.json())
@@ -126,14 +112,33 @@ fetch("http://localhost:3000/analytics")
     });
 
     const deleteIcons = document.querySelectorAll(".delete-icon");
+    const copyIcons = document.querySelectorAll(".copy-icon");
 
     deleteIcons.forEach((element) => {
       element.addEventListener("click", handleDelete);
+    });
+
+    copyIcons.forEach((copyIcon) => {
+      copyIcon.addEventListener("click", copyUrl);
     });
   })
   .catch((error) => {
     console.error("Error:", error);
   });
+
+async function copyUrl(event) {
+  const url = event.currentTarget.getAttribute("data-url");
+  navigator.clipboard.writeText("http://localhost:3000/" + url).then(() => {
+    Toastify({
+      text: "URL copied to clipboard.",
+      gravity: "top",
+      position: "center",
+      style: {
+        background: "linear-gradient(to right, #00bfa5, #1de9b6)",
+      },
+    }).showToast();
+  });
+}
 
 async function handleDelete(event) {
   const id = event.currentTarget.getAttribute("data-id");
@@ -154,8 +159,3 @@ async function handleDelete(event) {
     console.error("Failed to delete URL", error);
   }
 }
-
-const copyIcons = document.querySelectorAll(".copy-icon");
-copyIcons.forEach((copyIcon) => {
-  copyIcon.addEventListener("click", handleCopy);
-});

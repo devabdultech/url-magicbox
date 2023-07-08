@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import path from "path";
 import urlRoutes from "./routes/urlRoutes";
 import { Url } from "./models/Url";
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 dotenv.config();
 
 connectDB();
